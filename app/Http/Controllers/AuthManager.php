@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Attempting;
 
 class AuthManager extends Controller
@@ -27,6 +29,23 @@ class AuthManager extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->intended(route('welcome'));
         }
-        return redirect(route('login'))->with('error', 'invalid credintials');
+        return redirect(route('login'))->with('Error', 'invalid credintials');
+    }
+    function registrerPost(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required'
+        ]);
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['password'] = Hash::make($request->password);
+
+        $user = User::create($data);
+        if (!$user) {
+            return redirect(route('register'))->with("Error", "Couldnt Register");
+        }
+        return redirect()->intended(route('login'))->with("Success", "You can now login");
     }
 }
