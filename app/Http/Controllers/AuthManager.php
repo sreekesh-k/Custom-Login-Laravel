@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Attempting;
+use Illuminate\Support\Facades\Session;
 
 class AuthManager extends Controller
 {
@@ -47,5 +48,11 @@ class AuthManager extends Controller
             return redirect(route('register'))->with("Error", "Couldnt Register");
         }
         return redirect()->intended(route('login'))->with("Success", "You can now login");
+    }
+    function logout()
+    {
+        Session::flush();
+        Auth::logout();
+        return redirect()->intended(route('login'));
     }
 }
