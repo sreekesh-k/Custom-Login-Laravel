@@ -32,7 +32,7 @@ class AuthManager extends Controller
         }
         return redirect(route('login'))->with('Error', 'invalid credintials');
     }
-    function registrerPost(Request $request)
+    function registerPost(Request $request)
     {
         $request->validate([
             'name' => 'required',
