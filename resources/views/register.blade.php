@@ -2,7 +2,7 @@
 @section('title', 'Register')
 @section('content')
     <div class="container">
-        <form class="ms-auto me-auto" style="width:500px">
+        <form action="{{ route('register.post') }}" method="POST" class="ms-auto me-auto" style="width:500px">
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="email" class="form-control" name="name">
