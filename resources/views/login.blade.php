@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <form action="{{ route('login.post') }}" method="POST" class="ms-auto me-auto" style="width:500px">
+            @csrf
             <div class="mb-3">
                 <label class="form-label">Email address</label>
                 <input type="email" class="form-control" name="email">
