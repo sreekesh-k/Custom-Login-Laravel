@@ -3,6 +3,13 @@
 @section('content')
     <div class="container">
         <div class='mt-5'>
+            @if ($errors->any())
+                <div class="col-12">
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
             @if (session()->has('Error'))
                 <div class="alert alert-danger">{{ session('Error') }}</div>
             @endif
