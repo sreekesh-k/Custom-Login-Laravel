@@ -13,10 +13,16 @@ class AuthManager extends Controller
 {
     function login()
     {
-        return view('Login');
+        if (Auth::check()) {
+            return redirect(route('welcome'));
+        }
+        return view('login');
     }
     function register()
     {
+        if (Auth::check()) {
+            return redirect(route('welcome'));
+        }
         return view('Register');
     }
     function loginPost(Request $request)
@@ -34,6 +40,7 @@ class AuthManager extends Controller
     }
     function registerPost(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users',
